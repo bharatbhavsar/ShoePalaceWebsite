@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title>Shopping Cart BS 2 - Bootsnipp.com</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+    <style type="text/css">
+        
+    </style>
+    //<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    
+	
+	<link rel="stylesheet" type="text/css" href="./css/MysimpleCart.css">
+	
+ 
+	<!-- Bootstrap Core CSS -->
+    
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+   
+	<link rel="stylesheet" type="text/css" href="./css/shop-homepage.css">
+ 
+   
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" >
+		<div class="container" align="center">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header" float="right">
+                
+                <a class="navbar-brand" href="#"><img src="./Images/logo1.jpg" width="200" height="30"></a>
+            </div>
+                       <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav" style="margin-top:10px; ">
+                   <li>
+                       <button type="button" class="btn btn-warning" id="showEmail"></button>
+                   </li>
+
+                   <li>
+                       <button type="button" class="btn btn-danger" style="margin-left:10px;"><a href="login.html" style="color:white;">logout</a></button>
+                   </li>
+                   
+               </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+<div class="container" align="center">
+
+	<table class="myCartTable" align="center">
+		<tbody id="myCartBody">
+			<tr class="cartTableHeader" >
+				<th class="cartTable">Image</th>
+				<th class="cartTable">Product Name</th>
+				<th class="cartTable">Size</th>
+				<th class="cartTable">Price</th>
+				<th class="cartTable">Remove</th>
+			</tr>
+		</tbody>
+	</table>
+	
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	
+	<table class="myCartTotalPrice" align="center">
+		<tbody>
+			<tr align="center">
+                <td><h5>Estimated shipping</h5></td>
+				<td class="simpleCart_shipping"><h5><strong>$00.00</strong></h5></td>
+			</tr>
+			<tr align="center">
+				
+				<td><h3>Total</h3></td>
+				<td class="simpleCart_grandTotal"><h3><strong id="total"></strong></h3></td>
+			</tr>
+			<tr>
+				<td align="center">
+					<button type="button" class="btn btn-default" >
+						<a href="userHomePage.html"><span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping</a>
+					</button>
+				</td>
+				<td align="center">
+					<button id="checkout" type="button" class="btn btn-success" >
+						<span class="glyphicon "> Checkout </span>
+					</button>
+				</td>
+			</tr>
+		
+		</tbody>
+	</table>
+
+</div>
+<script src="js/jquery.js"></script>
+<script>
+
+$(document).ready(function() {
+	
+	var listvalues3 = localStorage.getItem('list');
+		var list = JSON.parse(listvalues3);
+		
+		var email = localStorage.getItem('email');
+			
+			document.getElementById("showEmail").innerHTML = "Hi "+email+"!";
+	if(list==null)
+		{
+			var sum = 0;
+			localStorage.setItem('totalPrize', sum);
+			document.getElementById("total").innerHTML = "$" + sum;
+			$("#checkout").prop('disabled', true);
+			
+		}
+		else
+			{
+				var retrievedObject = localStorage.getItem('list');
+				
+	   		
+	   			var j = JSON.parse(retrievedObject);
+	   			
+	   			var pid = j.productID;
+	   			var pname = j.productName;
+	   			var pimage = j.productImage;
+	   			var psize = j.productSize;
+	   			var pprize = j.productPrize;
+	   			
+	   			var arrid = pid.split(',');
+	   			var arrname = pname.split(',');
+	   			var arrimage = pimage.split(',');
+	   			var arrsize = psize.split(',');
+	   			var arrprize = pprize.split(',');
+	   			
+	   			var sum = 0;
+	   			for(var i=0;i<arrid.length;i++)
+	   			{
+	   				jQuery("#myCartBody").append('<tr id=\"'+i+'\"><td class=\"cartTable\"><img  class=\"imgMyCart\" src=\"./Images/'+ arrimage[i] +'\" alt=\"image\" /></td><td class=\"cartTable\">'+ arrname[i] +'</td><td class=\"cartTable\">'+ arrsize[i] +'</td><td class=\"cartTable\">'+ arrprize[i] +'</td><td class=\"cartTable\"><input type=\"button\" class=\"removeItem\" value=\"Remove\"/></td></tr>');
+					
+	   				sum = sum + parseInt(arrprize[i]);
+	   				
+	   			}
+	   			localStorage.setItem('totalPrize', sum);
+	   			document.getElementById("total").innerHTML = "$" + sum;
+	   			
+			}	
+});
+		
+jQuery(".myCartTable").on('click', '.removeItem', function () {
+				var index = jQuery(this).parent().parent().attr("id");
+				
+				var retrievedObject = localStorage.getItem('list');
+				
+	   		
+	   			var j = JSON.parse(retrievedObject);
+	   			
+	   			var pid = j.productID;
+	   			var pname = j.productName;
+	   			var pimage = j.productImage;
+	   			var psize = j.productSize;
+	   			var pprize = j.productPrize;
+	   			
+	   			var arrid = pid.split(',');
+	   			var arrname = pname.split(',');
+	   			var arrimage = pimage.split(',');
+	   			var arrsize = psize.split(',');
+	   			var arrprize = pprize.split(',');
+	   			
+	   			var fid = "";
+	   			var fname = "";
+	   			var fimage = "";
+	   			var fsize = "";
+	   			var fprize = "";
+	   			var sum = 0;
+	   			
+	   			for(var i=0;i<arrid.length;i++)
+	   				{
+	   					if(i!=index)
+	   					{
+	   						
+	   								fid = fid + arrid[i] +",";
+   									fname = fname + arrname[i]+",";
+   									fimage = fimage+arrimage[i]+",";
+   									fsize = fsize+arrsize[i]+",";
+   									fprize = fprize+arrprize[i]+",";
+	   								sum = sum + parseInt(arrprize[i]);
+	   					}
+	   				}
+	   			
+				
+	   			fid = fid.slice(0,-1);
+	   			fname = fname.slice(0,-1);
+	   			fimage = fimage.slice(0,-1);
+	   			fsize = fsize.slice(0,-1);
+	   			fprize = fprize.slice(0,-1);
+	   			if(fid=="")
+	   			{
+	   				
+	   				$("#checkout").prop('disabled', true);
+	   				localStorage.removeItem('list');
+	   				document.getElementById("total").innerHTML = "$" + "00";
+	   				location.href = "currentCart.html";
+	   				
+	   			}
+	   			else
+	   				{
+	   				var testObject = { "productID": fid, "productName": fname, "productImage":fimage, "productSize":fsize,"productPrize":fprize};
+		   			localStorage.setItem('list', JSON.stringify(testObject));
+		   			location.href = "currentCart.html";
+	   				}
+	   							
+				jQuery(this).parent().parent().remove();
+				localStorage.setItem('totalPrize', sum);
+			
+				document.getElementById("total").innerHTML = "$" + sum;
+				
+				
+				
+		});
+		
+		
+jQuery("#checkout").on('click', function () {
+	location.href = "carddetails.html";
+});
+
+	
+</script>
+</body>

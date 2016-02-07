@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Shop Item - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+ 
+ 
+	<!-- Bootstrap Core CSS -->
+    
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+   
+	<link rel="stylesheet" type="text/css" href="./css/shop-homepage.css">
+    
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" >
+        <div class="container" align="center">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header" float="right">
+                
+                <a class="navbar-brand" href="#"><img src="./Images/logo1.jpg" width="200" height="30"></a>
+            </div>
+                       <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav" style="margin-top:10px; ">
+                   <li>
+                       <button type="button" class="btn btn-warning" id="showEmail"></button>
+                   </li>
+
+                   <li>
+                       <button type="button" class="btn btn-danger" style="margin-left:10px;"><a href="login.html" style="color:white;">logout</a></button>
+                   </li>
+                   
+               </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <!-- Page Content -->
+    <div class="container">
+       
+        <br>
+        <br>
+
+        <div class="row">
+
+            
+            <div class="col-md-9"  style="float:left;">
+
+            </div>
+
+            
+            <div  class="cart_details cartShortDetail" style="float:right;">
+				<div class="cart_info">
+					<div align="center">
+						You have total <div id="count" class="simpleCart_quantity" style="color: orange;"></div> items in your Cart.
+					</div>
+					<br/>
+					<div align="center">
+						Total Amount: <div id="total" class="simpleCart_total" style="color: green;"></div>
+					</div>
+				</div>
+				<br/>
+				<div align="center">
+					<button type="button" class="btn btn-default" >
+						<a href="userHomePage.html"><span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping</a>
+					</button>
+				</div>
+				<br>
+				<div align="center">
+					<button type="button" class="btn btn-success" >
+						<a href="currentCart.html" style="color: white;"><span class="glyphicon ">Proceed to Checkout</span></a>
+					</button>
+				</div>
+			</div>
+
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+    <div class="container">
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Shoe Palace 2015</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="./js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="./js/bootstrap.min.js"></script>
+    
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/jquery.js"></script>
+    <script>
+    
+    var URL = "/ShoePalaceWPL/rest/Shoe/Homepage";
+    var listvalues = localStorage.getItem('productID');
+    var list = JSON.parse(listvalues);
+    var productID = list.productID;
+    
+    var email = localStorage.getItem('email');
+		
+	document.getElementById("showEmail").innerHTML = "Hi "+email+"!";
+    
+    var formURL = URL + "/"+productID;
+    
+    
+    
+    var productImage = "";
+	var productID = 0;
+	var productBrand = "";
+	var productName = "";
+	var productPrize = 0.00;
+	var productDescription = "";
+	var productSize = 0;
+    
+    $.ajax({
+		  method: "GET",
+		  url: formURL,
+		  
+		  success : function(data)
+		  {
+			  
+			  
+			   var name = data.name;
+			  
+			  $.each(data.shoe, function(i) 
+			  {
+				productImage = data.shoe[i].productImage;
+				productID = data.shoe[i].productID;
+				productBrand = data.shoe[i].productBrand;
+				productName = data.shoe[i].productName;
+				productPrize = data.shoe[i].productPrize;
+				productDescription = data.shoe[i].productDescription;
+				productSize = data.shoe[i].productSize;
+				var arr = productSize.split(',');
+				var v3 = "";
+				//$("#item_list").append('<div class=\"col-sm-4 col-lg-4 col-md-4 simpleCart_shelfItem\" ><br><div class=\"thumbnail\"><a id=\"'+productID+'\"href=\"itemDetailPage.html\"><img src=\"'+ productImage +'\" alt=\"\"><div class=\"caption\"><h4 class=\"pull-right item_price\">$'+ productPrize +'</h4><h4 class=\"item_name\">'+ productName +'<br></div></a><a href=\"javascript:;\" class=\"item_add\">Add to Cart</a></div></div>');
+				//$("#item_list").append('<div class=\"col-sm-4 col-lg-4 col-md-4 simpleCart_shelfItem\" ><br><div class=\"thumbnail\"><a id=\"'+productID+'\" href=\"#\" onclick="myFunc(this)"><img src=\"'+ productImage +'\" alt=\"\"><div class=\"caption\"><h4 class=\"pull-right item_price\">$'+ productPrize +'</h4><h4 class=\"item_name\">'+ productName +'<br></div></a></div></div>');
+				
+				
+						
+						var v1 = '<div class=\"thumbnail simpleCart_shelfItem\"><img class=\"img-responsive\" src=\"./Images/' + productImage + '\" alt=\"\"><p class=\"item_name\">' + productBrand + " " + productName + '</p><p class=\" item_price\">$ ' + productPrize + '</p><p align=\"center\"><strong>Product Description</strong></p><p align=\"center\">' + productDescription + '</p><p align=\"center\">Available Sizes: ' ;
+						
+						var v2 = '<input id="dropDown" list="Size" value='+arr[0]+'><datalist id="Size">';
+						$.each(arr, function(j)
+						{
+							 v3 = v3 + '<option value=\"'+arr[j]+'\">';
+						});
+						
+						var v4 = '</p><div align=\"center\"><button id="addCart" onclick="myFunc(this)">Add to Cart</button></div></div>';
+				
+				var v5 = v1+v2+v3+v4;
+				$(".col-md-9").append(v5);
+			  }); 
+			  
+			  $(".dropDown").val(1);	
+			  
+			  var listvalues3 = localStorage.getItem('list');
+	   			var j = JSON.parse(listvalues3);
+	   			
+	   			var sum = 0;
+	   			var length = 0;
+	   	
+	   			
+	   			
+	   			if(j==null)
+	   			{
+	   				document.getElementById("count").innerHTML = length;
+	   				document.getElementById("total").innerHTML = "$" + sum.toString();
+
+	   		   		
+	   		   		
+	   			}
+	   			else
+	   				{
+	   					var pid = j.productID;
+			   			var pname = j.productName;
+			   			var pimage = j.productImage;
+			   			var psize = j.productSize;
+		   				var pprize = j.productPrize;
+		   			
+		   				var arrid = pid.split(',');
+		   				var arrname = pname.split(',');
+		   				var arrimage = pimage.split(',');
+		   				var arrsize = psize.split(',');
+		   				var arrprize = pprize.split(',');
+		   			
+		   			
+		   		
+		   				document.getElementById("count").innerHTML = arrid.length;
+		   				
+		   				
+		   				for( var i=0;i<arrid.length;i++)
+		   				{
+		   					sum = sum + parseInt(arrprize[i]);
+		   				}
+		   				document.getElementById("total").innerHTML = "$" + sum.toString();
+				 		  
+	   				}
+	   			
+		  },
+			
+		 error: function(XMLHttpRequest, textStatus, errorThrown)
+		{
+			window.alert("Web Service Error");
+		}
+		});
+    	var bool = false;
+   		 function myFunc(d)
+   		 {
+   			var size = $('#dropDown').val();
+   			
+   			
+   			var listvalues3 = localStorage.getItem('list');
+   			var list = JSON.parse(listvalues3);
+   			var length = 1;
+   			var sum = 0;
+   	
+   			
+   			
+   			if(list==null)
+   			{
+   				var testObject = { "productID": productID.toString(), "productName": productBrand+" "+ productName, "productImage":productImage, "productSize":size,"productPrize":productPrize.toString()};
+				
+				document.getElementById("count").innerHTML = length;
+   				document.getElementById("total").innerHTML = "$" + productPrize.toString();
+
+   		   		
+   		   		localStorage.setItem('list', JSON.stringify(testObject));
+
+   		   		
+   		   		
+   			}
+   			else
+   				{
+   					var retrievedObject = localStorage.getItem('list');
+   					
+   		   		
+   		   			var j = JSON.parse(retrievedObject);
+   		   			
+   		   			var pid = j.productID;
+   		   			var pname = j.productName;
+   		   			var pimage = j.productImage;
+   		   			var psize = j.productSize;
+   		   			var pprize = j.productPrize;
+   		   			
+   		   			var fid = pid + "," + productID;
+   		   			var fname = pname + "," + productBrand+" "+ productName;
+   		   			var fimage = pimage + "," + productImage;
+   		   			var fsize = psize + "," + size;
+   		   			var fprize = pprize + "," + productPrize;
+   		   			
+   		   			var arrid = fid.split(',');
+   					var arrname = fname.split(',');
+   					var arrimage = fimage.split(',');
+   					var arrsize = fsize.split(',');
+   					var arrprize = fprize.split(',');
+   					
+   					document.getElementById("count").innerHTML = arrid.length;
+	   				
+	   				
+	   				for( var i=0;i<arrid.length;i++)
+	   				{
+	   					sum = sum + parseInt(arrprize[i]);
+	   				}
+	   				document.getElementById("total").innerHTML = "$" + sum.toString();
+   					
+   					
+   		   			
+   		   			var testObject = { "productID": fid, "productName": fname, "productImage":fimage, "productSize":fsize,"productPrize":fprize};
+   		   			
+   		   			localStorage.setItem('list', JSON.stringify(testObject));
+   		   			var listvalues4 = localStorage.getItem('list');
+   		   			
+   				}	
+   			
+    	}
+   		 
+   		 
+    </script>
+
+</body>
+
+</html>

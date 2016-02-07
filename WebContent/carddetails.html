@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Address and Payment</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <style type="text/css">
+    /* Padding - just for asthetics on Bootsnipp.com */
+ body {
+    padding-top: 70px;
+    background-image: url("./Images/7.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+}
+
+/* CSS for Credit Card Payment form */
+.panel-title {display: inline;font-weight: bold;}
+.checkbox.pull-right { margin: 0; }
+.pl-ziro { padding-left: 0px; }
+.form-control.error {
+    border-color: red;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,0,0,0.6);
+}
+label.error {
+  font-weight: bold;
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+.payment-errors {
+  font-weight: bold;
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+    </style>
+   
+    
+	<link rel="stylesheet" type="text/css" href="./css/MysimpleCart.css">
+	
+ 
+	<!-- Bootstrap Core CSS -->
+    
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+   
+	<link rel="stylesheet" type="text/css" href="./css/shop-homepage.css">
+    <script type="text/javascript">
+        
+        var defaultCSS = document.getElementById('bootstrap-css');
+        function changeCSS(css){
+            if(css) $('head > link').filter(':first').replaceWith('<link rel="stylesheet" href="'+ css +'" type="text/css" />'); 
+            else $('head > link').filter(':first').replaceWith(defaultCSS); 
+        }
+        
+    </script>
+</head>
+<body>
+
+
+
+<!-- If you're using Stripe for payments -->
+
+
+<!-- Credit card form -->
+
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" >
+		<div class="container" align="center">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header" float="right">
+                
+                <a class="navbar-brand" href="#"><img src="./Images/logo1.jpg" width="200" height="30"></a>
+            </div>
+                       <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav" style="margin-top:10px; ">
+                   <li>
+                       <button type="button" class="btn btn-warning" id="showEmail"></button>
+                   </li>
+
+                   <li>
+                       <button type="button" class="btn btn-danger" style="margin-left:10px;"><a href="login.html" style="color:white;">logout</a></button>
+                   </li>
+                   
+               </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+	
+<div class="container" style="float:left;">
+    <div class="row" style="float:left;">
+        <div class="col-xs-12 col-xs-offset-12 col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><img class="pull-right" src="./Images/person_home.jpg">Name and Delivery Address Details</h3>
+                </div>
+                <div class="panel-body">
+                    <form  >
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="customerName">CUSTOMER NAME</label>
+                                    <input form="payment-form" type="text" class="form-control" name="customerName" id="customerName" placeholder="Customer Name" title="Please enter valid First Name" required autofocus/>
+                                </div>
+                            </div>                        
+                        </div>
+						<br>
+						<div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="streetAndApt">Street Name and Apt No</label>
+                                    <input form="payment-form" type="text" class="form-control" name="streetAndApt" id="streetAndApt" placeholder="Street & Apt" title="Please enter Street and Apt No" required/>
+                                </div>
+                            </div>                        
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-md-6">
+                                <div class="form-group">
+                                    <label for="cityName">City</label>
+                                    <input form="payment-form" type="text" class="form-control" name="cityName" id="cityName" placeholder="City" title="Please enter City Name" required/>
+                                </div>
+                            </div>                        
+                        
+                            <div class="col-xs-6 col-md-6">
+                                <div class="form-group">
+                                    <label for="stateName">State</label>
+                                    <input form="payment-form" type="text" class="form-control" name="stateName" id="stateName" placeholder="State" title="Please enter State" required/>
+                                </div>
+                            </div>                        
+                        </div>						
+                        <div class="row">
+                            <div class="col-xs-6 col-md-6">
+                                <div class="form-group">
+                                    <label for="zipCode">ZipCode</label>
+                                    <input form="payment-form" type="number" min="11111" max="99999" class="form-control" name="zipCode" id="zipCode" placeholder="ZipCode"  title="Please enter valid ZipCode" required/>
+                                </div>
+                            </div>                        
+                       
+                            <div class="col-xs-6 col-md-6">
+                                <div class="form-group">
+                                    <label for="cardName">Country</label>
+                                    <input form="payment-form" type="text" class="form-control" name="countryName" id="countryName" placeholder="Country" title="Please enter Country" required/>
+                                </div>
+                            </div>                        
+                        </div>						
+						
+                    </form>
+                </div>
+            </div>
+        </div>		
+        <div class="col-xs-12 col-md-4">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><img class="pull-right" src="./Images/cards.jpg">Payment Details</h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form" id="payment-form" class="myPaymentForm" method="post" action="">
+					<br>
+                        <div class="row" align="center">
+                            <div >
+                                <a href="currentCart.html" style="color: red;">Change/ Cancel Order</a>
+                            </div>
+                        </div>
+						</br>
+                          <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="cardName">CARD HOLDER NAME</label>
+                                    <input type="text" class="form-control"  id="cardHolderName" name="cardHolderName" placeholder="Card Holder Name" title="Please enter Card Holder Name" required/>
+                                </div>
+                            </div>                        
+                        </div>
+
+						<div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="cardNumber">CARD NUMBER</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="cardNumber" name="cardNumber" placeholder="Valid Card Number" required data-stripe="number" min="1000000000000000" max="9999999999999999" />
+                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                    </div>
+                                </div>                            
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-10 col-md-10">
+                                <div class="form-group">
+                                    <label for="expMonth">EXPIRATION DATE</label>
+									<div >
+                                    <div class="col-xs-6 col-lg-6 pl-ziro" style="margin-left:0px;">
+                                        <input type="number" class="form-control" id="expMonth" name="expMonth" placeholder="MM" required data-stripe="exp_month" min="01" max="12" />
+                                    </div>
+                                    <div class="col-xs-6 col-lg-6 pl-ziro">
+                                        <input type="number" class="form-control" id="expYear" name="expYear" placeholder="YY" required data-stripe="exp_year" min="00" max="99"/>
+                                    </div>
+									</div>
+                                </div>
+                            </div>
+						</div>
+						<div class="row" >
+                            <div class="col-xs-5 col-md-5">
+                                <div class="form-group">
+                                    <label for="cvCode">CV CODE</label>
+									<div style="margin-left:15px;">
+                                    <input type="password" class="form-control" id="numberCVV" name="cvCode" placeholder="CVV" required data-stripe="cvc" />
+									</div>
+								</div>
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-xs-12">
+                                <button class="btn btn-success btn-lg btn-block" id="myPaymentButton"type="submit">Place Order</button>
+                            </div>
+                        </div>
+                        <div class="row" style="display:none;">
+                            <div class="col-xs-12">
+                                <p class="payment-errors"></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/jquery.js"></script>
+<script>
+
+$(document).ready(function() {
+	
+	var email = localStorage.getItem('email');
+		
+		document.getElementById("showEmail").innerHTML = "Hi "+email+"!";
+	
+	$("#myPaymentButton").click(function(){
+		
+		var a = document.getElementById("customerName").value;
+		var b = document.getElementById("streetAndApt").value;
+		var c = document.getElementById("cityName").value;
+		var d = document.getElementById("stateName").value;
+		var e = document.getElementById("zipCode").value;
+		var f = document.getElementById("countryName").value;
+		var g = document.getElementById("cardHolderName").value;
+		var h = document.getElementById("cardNumber").value;
+		var i = document.getElementById("expMonth").value;
+		var j = document.getElementById("expYear").value;
+		var k = document.getElementById("numberCVV").value;
+	
+			if(a =="" || b =="" || c =="" || d =="" || e =="" || f =="" || g =="" || h =="" || i =="" || j ==""||k==""){
+			$(".payment-errors").empty();
+			$(".payment-errors").append("!! PLEASE ENTER ALL DETAILS !!");
+			$(".payment-errors").fadeOut("slow");
+		
+		}
+		
+		else{
+			$(".payment-errors").empty();
+			var listvalues3 = localStorage.getItem('list');
+			var j = JSON.parse(listvalues3);
+			
+			var z = localStorage.getItem('totalPrize');
+			
+			
+
+			
+			
+			if(j==null)
+			{
+				
+				$("#placeOrder").attr("disabled", "disabled");
+		   		
+			}
+			else
+				{
+					var submitCustomerOrder = new Object();
+					submitCustomerOrder.productID = j.productID;
+					submitCustomerOrder.productSize = j.productSize;
+					submitCustomerOrder.totalPrize = localStorage.getItem('totalPrize');
+					submitCustomerOrder.name = $("#customerName").val();
+					submitCustomerOrder.address = $("#streenAndApt").val();
+					submitCustomerOrder.city = $("#cityName").val();
+					submitCustomerOrder.zipCode = $("#zipCode").val();
+					submitCustomerOrder.state = $("#stateName").val();
+					submitCustomerOrder.country = $("#countryName").val();
+					submitCustomerOrder.cardNumber = $("#cardNumber").val();
+					submitCustomerOrder.cardHolderName = $("#cardHolderName").val();
+					submitCustomerOrder.expiryMonth = $("#expMonth").val();
+					submitCustomerOrder.expiryYear = $("#expYear").val();
+					submitCustomerOrder.email = localStorage.getItem('email');
+					
+					var jsonText = JSON.stringify(submitCustomerOrder);
+					
+					
+					
+					var formURL = "/ShoePalaceWPL/rest/Shoe/MakePayment";
+					
+					$.ajax(
+							 {	
+							 	headers: { 
+						        'Accept': 'text',
+						        'Content-Type': 'application/json' 
+						    }, 
+							url: formURL,
+							type: "POST",
+							data: jsonText,
+							//dataType: "json",
+							contentType:'application/json',
+							success: function(data) {
+								
+								var success = 'Payment successful';
+								 
+								if(data==success)
+									{
+										
+										location.href = "confirmPage.html";
+									}
+								else
+									{
+										window.alert("Some error while updating customer details");
+									}
+								
+							},
+						    error : function(XMLHttpRequest, textStatus, errorThrown) {
+								alert("Web Service Error")
+								
+								
+							}
+							});
+				
+			
+					
+				  
+				}
+			
+			
+		}
+			return false;
+	});
+	
+	
+	
+	
+});
+</script>	
+
+</body>
+</html>

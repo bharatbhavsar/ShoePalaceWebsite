@@ -1,0 +1,157 @@
+/*!
+ * Start Bootstrap - Shop Homepage HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+ body {
+    padding-top: 70px;
+    background-image: url("7.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+}
+
+.cartShortDetail{
+	display: block;
+	background-color: white;
+	padding:10px;
+	width: 20%;
+	float: right;
+	font-weight: bold;
+	border-radius: 30px;
+	
+}
+
+.leftList{
+	width: 80%;
+}
+
+.img-rounded{
+	width: 150px;
+	height: 150px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+}
+
+.imgMyCart{
+	
+	width: 50px;
+	height: 50px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	
+
+}
+.item_box{
+	border:1px ridge;
+	border-color:#A79E9F;
+	border-radius: 15px;
+	margin:7px;
+	float:left;
+	padding-left:5px;
+	padding-right:5px;
+	padding-bottom:10px;
+	height:280px;
+	width:250px;
+	background-color:white;
+}
+
+
+.item_box:hover
+{
+border: 1px solid;
+border-color:black;
+background-color:#EFEFEF;
+}
+
+.item_name{
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+	width:80%;
+	margin-top:2px;
+	text-align:center;
+	
+	font-weight: bold;
+	font-size: 16px;
+}
+.item_price{
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+	width:80%;
+	margin-top:2px;
+	text-align:center;
+	
+	font-size: 16px;
+}
+
+.navbar .navbar-nav {
+  display: inline-block;
+  float: right;
+  vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+.slide-image {
+    width: 100%;
+}
+
+.carousel-holder {
+    margin-bottom: 30px;
+}
+
+.carousel-control,
+.item {
+    border-radius: 4px;
+}
+
+.caption {
+    height: 130px;
+    overflow: hidden;
+}
+
+.caption h4 {
+    white-space: nowrap;
+}
+
+.thumbnail img {
+    width: 85%;
+    height: 70%;
+}
+
+.ratings {
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #d17581;
+}
+
+.thumbnail {
+    padding: 10px;
+    border:1px ridge;
+	border-color:#A79E9F;
+	border-radius: 15px;
+	margin:7px;
+	float:left;
+	padding-left:5px;
+	padding-right:5px;
+	padding-bottom:10px;
+	height:auto;
+	width:800px;
+	background-color:white;
+}
+ .caption-full {
+    padding: 9px;
+    color: #333;
+}
+
+footer {
+    margin: 50px 0;
+}

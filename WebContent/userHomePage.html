@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	
+	<script type="text/javascript" src="./css/simpleCart.min.js"></script>
+
+    <title>Shop Homepage</title>
+
+    <!-- Bootstrap Core CSS -->
+    
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+   
+	<link rel="stylesheet" type="text/css" href="./css/shop-homepage.css">
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+     
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" >
+		<div class="container" align="center">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header" float="right">
+                
+                <a class="navbar-brand" href="#"><img src="./Images/logo1.jpg" width="200" height="30"></a>
+            </div>
+                       <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav" style="margin-top:10px; ">
+                   <li>
+                       <button type="button" class="btn btn-warning" id="showEmail"></button>
+                   </li>
+
+                   <li>
+                       <button type="button" class="btn btn-danger" style="margin-left:10px;"><a href="login.html" style="color:white;">logout</a></button>
+                   </li>
+                   
+               </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+
+    <!-- Page Content -->
+
+
+    <div class="container" >
+    	<form id="searchForm" action="" method="post" role="form" style="display: block;">
+        
+
+        <br>
+        <br>
+        <div class="row">
+
+
+
+            <div class="col-md-9" id="item_list" width="70%" style="float:left;">
+
+                
+
+            </div>
+			<div  class="cart_details cartShortDetail" style="float:right;">
+				<div class="cart_info">
+					<div align="center">
+						You have total <div id="count" class="simpleCart_quantity" style="color: orange;"></div> items in your Cart.
+					</div>
+					<br/>
+					<div align="center">
+						Total Amount: <div id="total" class="simpleCart_total" style="color: green;"></div>
+					</div>
+				</div>
+				<br/>
+				
+				<div align="center">
+					<button type="button" class="btn btn-success" >
+						<a href="currentCart.html" style="color: white; font-weight: bold;"><span class="glyphicon ">Proceed to Checkout</span></a>
+					</button>
+				</div>
+				
+			</div>
+		</div>
+
+        </div>
+
+    </div>
+    
+
+    <div class="container" style="margin-left: auto; margin-right: auto;">
+		
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Shoe Palace 2015</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+	<script>
+	
+	var formURL = "/ShoePalaceWPL/rest/Shoe/Homepage";
+	
+	$.ajax({
+		  method: "GET",
+		  url: formURL,
+		  
+		  success : function(data)
+		  {
+			  	console.log(data);
+			  	var listvalues3 = localStorage.getItem('list');
+	   			var j = JSON.parse(listvalues3);
+	   			
+	   			var sum = 0;
+	   			var length = 0;
+	   	
+	   			var email = localStorage.getItem('email');
+	   			
+	   			document.getElementById("showEmail").innerHTML = "Hi "+email+"!";
+	   			
+	   			if(j==null)
+	   			{
+	   				document.getElementById("count").innerHTML = length;
+	   				document.getElementById("total").innerHTML = "$" + sum.toString();
+
+	   		   		
+	   		   		
+	   			}
+	   			else
+	   				{
+	   					var pid = j.productID;
+			   			var pname = j.productName;
+			   			var pimage = j.productImage;
+			   			var psize = j.productSize;
+		   				var pprize = j.productPrize;
+		   			
+		   				var arrid = pid.split(',');
+		   				var arrname = pname.split(',');
+		   				var arrimage = pimage.split(',');
+		   				var arrsize = psize.split(',');
+		   				var arrprize = pprize.split(',');
+		   			
+		   			
+		   		
+		   				document.getElementById("count").innerHTML = arrid.length;
+		   				
+		   				
+		   				for( var i=0;i<arrid.length;i++)
+		   				{
+		   					sum = sum + parseInt(arrprize[i]);
+		   				}
+		   				document.getElementById("total").innerHTML = "$" + sum.toString();
+				 		  
+	   				}
+			  
+			  
+			  var name = data.name;
+			  
+			  $.each(data.shoe, function(i) 
+			  {
+				var productImage = data.shoe[i].productImage;
+				var productID = data.shoe[i].productID;
+				var productBrand = data.shoe[i].productBrand;
+				var productName = data.shoe[i].productName;
+				var productPrize = data.shoe[i].productPrize;
+				
+				var productNameShow = productBrand + " " + productName;
+				
+				
+				$("#item_list").append('<div class=\"item_box simpleCart_shelfItem\"><a href=\"itemDetailPage.html\"><a id=\"'+productID+'\" href=\"#\" onclick=\"myFunc(this)\"><img class=\"img-rounded\"src=\"./Images/'+ productImage +'\"  alt=\" Shoe Image\" ></p><p class=\"item_name\">'+ productNameShow +'</p><p class=\"item_price\">$'+ productPrize +'</p></a></div>');
+			  });
+			  
+		  },
+			
+		 error: function(XMLHttpRequest, textStatus, errorThrown)
+		{
+			window.alert("Web Service Error");
+		}
+		});
+	
+	
+	function myFunc(d)
+	{
+		var id = d.getAttribute("id");
+		var listvalues = { "productID": id};
+		localStorage.setItem('productID', JSON.stringify(listvalues));
+		
+		
+		
+		location.href = "itemDetailPage.html";
+	}
+	
+	
+	
+	</script>
+
+</body>
+
+</html>
